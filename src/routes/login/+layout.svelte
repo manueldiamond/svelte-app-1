@@ -1,6 +1,9 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import AnimatedRoute from "$lib/AnimatedRoute.svelte";
+    import AnimatedRoute from "$lib/components/AnimatedRoute.svelte";
+
+  
+
 </script>
 <main class="items-center flex-col flex py-5">
     <nav class="pb-10">
@@ -23,7 +26,7 @@
     </nav>
     <AnimatedRoute>
         <div class="card bg-neutral">
-            <div class="card-body">
+            <div class="card-body items-center flex flex-col">
                 <slot/>
             </div>
         </div>

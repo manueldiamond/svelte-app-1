@@ -1,7 +1,7 @@
 import {
-    FB_PROJECT_ID as projectId,
-    FB_PRIVATE_KEY as privateKey,
-    FB_CLIENT_EMAIL as clientEmail
+    FIREBASE_PROJECT_ID as projectId,
+    FIREBASE_PRIVATE_KEY as privateKey,
+    FIREBASE_CLIENT_EMAIL as clientEmail
 } from '$env/static/private'
 
 import pkg from 'firebase-admin'
