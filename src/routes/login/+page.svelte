@@ -3,11 +3,23 @@
     import {GoogleAuthProvider,signInWithPopup,signOut} from 'firebase/auth'
     async function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
-        const user = await signInWithPopup(auth,provider)
+        const userCredential = await signInWithPopup(auth,provider)
+
+        const idToken=await userCredential.user.getIdToken()
+        const res = await fetch('/api/signin',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+                //svelte handles CORS
+            },
+            body:JSON.stringify({idToken})
+        })
     }
     async function sigOutUser() {
+        const res = await fetch('/api/signin',{method:'DELETE'});
         await signOut(auth)
     }
+    
 </script>
 
 {#if !$user}

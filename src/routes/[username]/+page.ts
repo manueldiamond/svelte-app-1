@@ -1,7 +1,8 @@
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 import type { PageLoad } from './$types';
-import { DB, type UserData } from '$lib/firebase';
+import { DB, } from '$lib/firebase';
 import { error } from '@sveltejs/kit';
+import type { UserData } from '$lib/types';
 
 export const load = (async ({params}) => {
     const collectionRef = collection(DB,'users')

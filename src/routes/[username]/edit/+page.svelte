@@ -81,13 +81,17 @@
             <a class="btn btn-outline" href={"/login/photo"}>Change Photo</a>
         </div>
     </div>
-
+    <p class="text-justify">
+        {$userData?.bio} 
+        [<a href="bio" class="link text-primary">edit</a>] 
+    </p>
+    
     <div class="flex gap-2">
         <label for="public-checkbox" >Public</label>
         <input 
             id='public-checkbox' 
             class:toggle-success={$userData?.published} 
-            bind:checked={isProfilePublic} 
+            checked={isProfilePublic} 
             type="checkbox" 
             class="toggle"
             on:change={setPublished}
@@ -117,7 +121,7 @@
                 {/each}
             </select>
             <input class:text-error={!titleValid} name="title" type="text" class="input" placeholder={$formData.icon?`My ${$formData.icon} Page`:"Title"} bind:value={$formData.title}/>
-            <input  class:text-error={!urlValid}  name="url" type="text" class="input" placeholder={`${$formData.icon} Link`} bind:value={$formData.url}/>
+            <input class:text-error={!urlValid}  name="url" type="text" class="input" placeholder={`${$formData.icon} Link`} bind:value={$formData.url}/>
             <p class="text-error"></p>
             <div class="flex justify-end">
                 <button 
