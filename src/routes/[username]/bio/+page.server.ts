@@ -36,9 +36,15 @@ export const actions={
             throw error(401,'Access DENIED!!')
         }
         if(bio.length>260){
-            return fail(400,{problem:'Bio must be less than 260 chars'});
+            return fail(400,{message:'Bio must be less than 260 chars'});
         }
-
-        await userDoc.update({bio})
+        try{
+            await userDoc.update({bio})
+            return {
+                message:'Bio updated successfully'
+            }
+        }catch{
+            return fail(400,{ message:'unknown error'})
+        }
     }
 } satisfies Actions

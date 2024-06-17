@@ -3,6 +3,7 @@
     import type { PageData } from './$types';
     import { DB, user, userData } from '$lib/firebase';
     import { page } from '$app/stores';
+    import { enhance } from '$app/forms';
     
     export let data: PageData;
     let status = ''
@@ -13,9 +14,9 @@
   
     <h1 class="font-bold text-xl">Editing<span class="text-primary text-2xl">@{$userData?.username}</span>'s Bio</h1>
    
-    <form class="form-control gap-2" method="POST">
+    <form class="form-control gap-2" method="POST" use:enhance >
         <textarea class="textarea-bordered w-80 textarea" name='bio' bind:value={data.bio}/>
-        <p>{$page.form?.problem??''}</p>
+        <p>{$page.form?.message??''}</p>
         <div class="flex justify-end gap-2">
             <a class="btn btn-ghost uppercase" href={`${data.username}`}>back</a>
             <button class="btn uppercase" type="submit">save</button>
