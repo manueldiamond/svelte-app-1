@@ -1,6 +1,8 @@
 <script lang="ts">
     import AuthCheck from "$lib/components/AuthCheck.svelte";
-    import { DB, user, userData, type UserData } from "$lib/firebase";
+    import { DB, user, userData} from "$lib/firebase";
+    import type { UserData } from "$lib/types";
+    
     import { deleteDoc, doc, getDoc, writeBatch } from "firebase/firestore";
     
     let username=""

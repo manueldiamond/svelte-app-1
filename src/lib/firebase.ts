@@ -6,6 +6,7 @@ import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { getAuth, onAuthStateChanged, type User } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { derived, writable, type Readable } from "svelte/store";
+import type { UserData } from "./types";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -63,18 +64,6 @@ function docStore<T>(path:string){
   return {subscribe,ref:docRef,id:docRef.id}
 }
 
-export interface UserLink{
-  title:string,
-  url:string,
-  icon:string
-}
-export interface UserData{
-  username:string,
-  photoURL?:string|null,
-  published?:boolean;
-  bio:string,
-  links: UserLink[]
-}
 export const userData:Readable<UserData|null> = derived(user,($user,set)=>{
   if($user){
     return docStore<UserData>(`users/${$user.uid}`).subscribe(set)

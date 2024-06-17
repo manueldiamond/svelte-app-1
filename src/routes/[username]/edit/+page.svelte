@@ -58,7 +58,7 @@
         const url = e.detail
         const userRef=doc(DB,'users',$user!.uid);
         updateDoc(userRef,{
-            links:arrayRemove()
+            links:$userData?.links.filter(item=>item.url!=url)
         })
     }
     function sortList(e:CustomEvent){
@@ -70,7 +70,7 @@
 
 <main class="flex flex-col gap-4 items-center w-90 my-5 mb-20">
 
-    <h1 class="text-2xl font-bold">Edit your Profile</h1>
+    <h1 class="text-2xl font-bold">{$user?.displayName} Edit your Profile</h1>
     <p>Profile Link: <a class="link text-secondary" href={profileUrl} target='_blank'>{profileUrl}</a></p>
 
     <div class="card w-96 bg-base-100 shadow-xl image-full">
