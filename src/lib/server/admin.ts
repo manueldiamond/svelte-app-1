@@ -11,7 +11,7 @@ import { getFirestore } from 'firebase-admin/firestore'
 try {
     pkg.initializeApp({
         credential:pkg.credential.cert({
-            privateKey,
+            privateKey:privateKey?privateKey.replace(/\\n/g, '\n'):undefined,
             clientEmail,
             projectId
         })
