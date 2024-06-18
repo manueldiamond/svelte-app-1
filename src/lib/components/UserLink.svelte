@@ -3,7 +3,7 @@
 
     export let 
      url='https://www.youtube.com/watch?v=t_FQ26XU930',
-     icon='default',
+     icon='youtube',
      title='Cool!',
      editing=false;
 
@@ -12,8 +12,9 @@
         dispatch('delete',url)
      }
 </script>
+
 <a href={editing?"":url} class="glass group relative btn py-5 px-8 h-max flex w-full gap-2">
-    <img src={`/${icon}.png`} alt={icon} width="32" height="32" class="icon"/>
+    <img src={`${icon}.png`} alt={icon} width="32" height="32" class="icon"/>
     <span class="flex-1">{title}</span>
     {#if editing}
         <div class="absolute hidden group-hover:flex justify-end gap-2">

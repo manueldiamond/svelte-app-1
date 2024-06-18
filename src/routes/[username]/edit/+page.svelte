@@ -6,12 +6,18 @@
     import SortableList from '$lib/components/SortableList.svelte';
     import {env} from '$env/dynamic/public'
     import { dev } from '$app/environment';
-    import type { ChangeEventHandler } from 'svelte/elements';
     import UserLink from '$lib/components/UserLink.svelte';
+    import { enhance } from '$app/forms';
+    import { page } from '$app/stores';
   
-    let showForm = false;
+    export let data: PageData;
     
     
+    let showAddLinkForm = false;
+    let showEditBioForm = false;
+    
+    $: bioFormVisible = showEditBioForm&&($page.form.message??true)
+
     let icons = ['Youtube','Facebook','Whatsapp','Twitter','GitHub','Custom']
     const defaultFormData={
         icon:'custom',
@@ -21,8 +27,6 @@
     
     const formData = writable(defaultFormData)
     const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
-    
-    
     $: isProfilePublic = $userData?.published;
     $: urlValid = $formData.url && $formData.url.match(urlRegex);
     $: titleValid = $formData.title.length<20 && $formData.title.length>0;
@@ -52,7 +56,7 @@
             url:''
          })
 
-        showForm=false;
+        showAddLinkForm=false;
     }
     function deleteLink(e:CustomEvent){
         const url = e.detail
@@ -71,7 +75,19 @@
 <main class="flex flex-col gap-4 items-center w-90 my-5 mb-20">
 
     <h1 class="text-2xl font-bold">{$user?.displayName} Edit your Profile</h1>
-    <p>Profile Link: <a class="link text-secondary" href={profileUrl} target='_blank'>{profileUrl}</a></p>
+    <p>Profile Link: <a class:text-primary={isProfilePublic} class="link" href={profileUrl} target='_blank'>{profileUrl}</a></p>
+    <p class="text-sm text-slate-500 -mt-4">({isProfilePublic?"visible to all":"only visible to you"})</p>
+    <div class="flex gap-2">
+        <label for="public-checkbox" >Public</label>
+        <input 
+            name='public-checkbox' 
+            class:toggle-success={$userData?.published} 
+            checked={isProfilePublic} 
+            type="checkbox" 
+            class="toggle"
+            on:change={setPublished}
+        />
+    </div>
 
     <div class="card w-96 bg-base-100 shadow-xl image-full">
         <figure>
@@ -81,23 +97,26 @@
             <a class="btn btn-outline" href={"/login/photo"}>Change Photo</a>
         </div>
     </div>
-    <p class="text-justify">
-        {$userData?.bio} 
-        [<a href="bio" class="link text-primary">edit</a>] 
-    </p>
     
-    <div class="flex gap-2">
-        <label for="public-checkbox" >Public</label>
-        <input 
-            id='public-checkbox' 
-            class:toggle-success={$userData?.published} 
-            checked={isProfilePublic} 
-            type="checkbox" 
-            class="toggle"
-            on:change={setPublished}
-        />
-    </div>
 
+    {#if bioFormVisible}
+    <form class="form-control form-bordered gap-2" method="POST" use:enhance >
+        <textarea class="textarea-bordered w-80 textarea" name='bio' bind:value={data.bio}/>
+        <p>{$page.form?.message??''}</p>
+        <div class="flex justify-end gap-2">
+            <button on:click={()=>showEditBioForm=false} class="btn btn-ghost uppercase">cancel</button>
+            <button class="btn uppercase" type="submit">save</button>
+        </div>
+    </form>
+    {:else}
+        <p class="text-justify">
+            {$userData?.bio} 
+            [<button on:click={()=>showEditBioForm=true} class="link text-primary">edit</button>] 
+        </p>
+    {/if}
+
+    <hr class="w-40 mt-5 text-slate-500"/>
+    <h1 class="text-xl font-semibold text-primary ">Edit Links</h1>
     <div class="px-4 w-80"> 
         <SortableList 
             
@@ -110,7 +129,7 @@
             </div>
         </SortableList>
     </div>
-    {#if showForm}
+    {#if showAddLinkForm}
         <form 
             on:submit|preventDefault={addLink} 
             class="border-neutral bg-neutral border-2 border-dashed rounded-xl"    
@@ -125,7 +144,7 @@
             <p class="text-error"></p>
             <div class="flex justify-end">
                 <button 
-                on:click={()=>showForm=false} 
+                on:click={()=>showAddLinkForm=false} 
                 class="btn btn-ghost uppercase"
                 >
                     Cancel
@@ -135,7 +154,7 @@
         </form>
     {:else}
         <button 
-            on:click={()=>showForm=true}  
+            on:click={()=>showAddLinkForm=true}  
             class="btn"
         >Add Link</button>
     {/if}

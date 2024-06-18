@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type { UserLink } from '$lib/firebase';
     import { createEventDispatcher } from 'svelte';
     import {flip} from 'svelte/animate'
     
@@ -68,5 +67,5 @@
         {/each}
     </ul>
 {:else}
-    <p class="mx-auto text-center">No Items</p>
+    <p class="mx-auto text-center text sm my-5 text-slate-500">No Items</p>
 {/if}
