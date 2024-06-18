@@ -41,6 +41,7 @@ export const actions={
         try{
             await userDoc.update({bio})
             return {
+                success:true,
                 message:'Bio updated successfully'
             }
         }catch{

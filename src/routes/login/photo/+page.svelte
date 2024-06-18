@@ -13,7 +13,6 @@
     
     $: profileUrl = `http${dev?"":"s"}://${dev?env.PUBLIC_DEV_URL:env.PUBLIC_PROD_URL}/${$userData?.username}` 
 
-
     async function upload(e:Event){
         uploading=true;
         const file:File|undefined = (e.target as HTMLInputElement).files?.[0]
@@ -44,5 +43,6 @@
         {/if}
         <input  bind:this={fileInput} disabled={uploading} on:change={upload} class="file-input" type="file" accept="image/* "/>
     </form>
-    <a href={profileUrl}  class="btn btn-primary w-full">Done</a>
+    
+    <a href={$userData?profileUrl:'username'}  class="btn btn-primary w-full">{$userData?'Done':'Setup UserName'}</a>
 </AuthCheck>

@@ -9,7 +9,7 @@
     <title>@{data.username} Links</title>
     <meta name='description' content={data.bio} />
 </svelte:head>
-<main class="flex-col flex gap-3 items-center mx-auto">
+<main class="flex-col flex gap-3 items-center mx-auto my-20">
     <h1 class="text-primary text-4xl">@{data.username}</h1>
     <img 
         class="avatar rounded-xl w-80" 

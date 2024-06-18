@@ -16,7 +16,7 @@
     let showAddLinkForm = false;
     let showEditBioForm = false;
     
-    $: bioFormVisible = showEditBioForm&&($page.form.message??true)
+    $: bioFormVisible = showEditBioForm&&((!$page.form?.success)??true)
 
     let icons = ['Youtube','Facebook','Whatsapp','Twitter','GitHub','Custom']
     const defaultFormData={
@@ -29,7 +29,7 @@
     const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
     $: isProfilePublic = $userData?.published;
     $: urlValid = $formData.url && $formData.url.match(urlRegex);
-    $: titleValid = $formData.title.length<20 && $formData.title.length>0;
+    $: titleValid = $formData.title.length<20;
     $: profileUrl = `http${dev?"":"s"}://${dev?env.PUBLIC_DEV_URL:env.PUBLIC_PROD_URL}/${$userData?.username}` 
     
     async function setPublished(e:Event) {
@@ -74,8 +74,8 @@
 
 <main class="flex flex-col gap-4 items-center w-90 my-5 mb-20">
 
-    <h1 class="text-2xl font-bold">{$user?.displayName} Edit your Profile</h1>
-    <p>Profile Link: <a class:text-primary={isProfilePublic} class="link" href={profileUrl} target='_blank'>{profileUrl}</a></p>
+    <h1 class="text-2xl font-bold">{$user?.displayName}, Edit your Profile</h1>
+    <p>Profile Link: <a class:text-primary={isProfilePublic} class="link" href={isProfilePublic?profileUrl:''} target='_blank'>{profileUrl}</a></p>
     <p class="text-sm text-slate-500 -mt-4">({isProfilePublic?"visible to all":"only visible to you"})</p>
     <div class="flex gap-2">
         <label for="public-checkbox" >Public</label>

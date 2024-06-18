@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {user} from '$lib/firebase'
+    import {user, userData} from '$lib/firebase'
 </script>
 {#if $user}
     <slot/>
