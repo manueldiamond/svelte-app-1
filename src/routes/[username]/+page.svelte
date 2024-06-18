@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import {user, userData, type UserData} from '$lib/firebase'
+    import {user, userData} from '$lib/firebase'
     import UserLink from '$lib/components/UserLink.svelte';
     export let data: PageData;
 </script>
@@ -10,7 +10,7 @@
     <meta name='description' content={data.bio} />
 </svelte:head>
 <main class="flex-col flex gap-3 items-center mx-auto my-20">
-    <h1 class="text-primary text-4xl">@{data.username}</h1>
+    <h1 class="text-primary text-2xl my-6">@<span class="text-4xl">{data.username}</span></h1>
     <img 
         class="avatar rounded-xl w-80" 
         src={$userData?.photoURL??'/user.png'} 
@@ -25,6 +25,6 @@
         {/each}
     </ul>
     {#if ($user&&data.username===$userData?.username)}
-        <a href={`/${$userData.username}/edit`} class="btn btn-outline w-full">Edit Your Profile</a>
+        <a href={`/${$userData?.username}/edit`} class="btn btn-outline w-full">Edit Your Profile</a>
     {/if}
 </main>

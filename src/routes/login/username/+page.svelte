@@ -27,9 +27,9 @@
             bio:'',
             links:[
                 {
-                    title:'Test Link',
-                    url:'https://google.com',
-                    icon:'custom'
+                    title:"So Cool",
+                    url:'https://www.youtube.com/watch?v=t_FQ26XU930',
+                    icon:'youtube'
                 }
             ]
         }satisfies UserData);

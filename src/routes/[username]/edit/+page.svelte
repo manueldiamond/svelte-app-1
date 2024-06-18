@@ -9,28 +9,17 @@
     import UserLink from '$lib/components/UserLink.svelte';
     import { enhance } from '$app/forms';
     import { page } from '$app/stores';
+    import AddLink from '$lib/components/AddLink.svelte';
   
     export let data: PageData;
     
     
-    let showAddLinkForm = false;
     let showEditBioForm = false;
     
     $: bioFormVisible = showEditBioForm&&((!$page.form?.success)??true)
-
-    let icons = ['Youtube','Facebook','Whatsapp','Twitter','GitHub','Custom']
-    const defaultFormData={
-        icon:'custom',
-        title:'',
-        url:''
-    }
-    
-    const formData = writable(defaultFormData)
-    const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
+    $: profileUrl = `${$page.url.origin}/${$userData?.username}` 
     $: isProfilePublic = $userData?.published;
-    $: urlValid = $formData.url && $formData.url.match(urlRegex);
-    $: titleValid = $formData.title.length<20;
-    $: profileUrl = `http${dev?"":"s"}://${dev?env.PUBLIC_DEV_URL:env.PUBLIC_PROD_URL}/${$userData?.username}` 
+
     
     async function setPublished(e:Event) {
         const input = e.target as HTMLInputElement;
@@ -39,25 +28,6 @@
         await updateDoc(ref,{published:!isProfilePublic})
     }        
     
-    async function addLink() {
-        
-        const ref = doc(DB,"users",$user!.uid);
-
-        await updateDoc(ref,{
-            links:arrayUnion({
-                ...$formData,
-                id: Date.now().toString(),
-            }),
-        }); 
-
-        formData.set({
-            icon:'custom',
-            title:'',
-            url:''
-         })
-
-        showAddLinkForm=false;
-    }
     function deleteLink(e:CustomEvent){
         const url = e.detail
         const userRef=doc(DB,'users',$user!.uid);
@@ -65,6 +35,7 @@
             links:$userData?.links.filter(item=>item.url!=url)
         })
     }
+
     function sortList(e:CustomEvent){
         const newList = e.detail;
         const userRef = doc(DB,'users',$user!.uid);
@@ -74,13 +45,14 @@
 
 <main class="flex flex-col gap-4 items-center w-90 my-5 mb-20">
 
-    <h1 class="text-2xl font-bold">{$user?.displayName}, Edit your Profile</h1>
+    <h1 class="text-2xl font-bold">Edit your Links Profile</h1>
     <p>Profile Link: <a class:text-primary={isProfilePublic} class="link" href={isProfilePublic?profileUrl:''} target='_blank'>{profileUrl}</a></p>
     <p class="text-sm text-slate-500 -mt-4">({isProfilePublic?"visible to all":"only visible to you"})</p>
     <div class="flex gap-2">
         <label for="public-checkbox" >Public</label>
         <input 
             name='public-checkbox' 
+            id='public-checkbox' 
             class:toggle-success={$userData?.published} 
             checked={isProfilePublic} 
             type="checkbox" 
@@ -129,33 +101,5 @@
             </div>
         </SortableList>
     </div>
-    {#if showAddLinkForm}
-        <form 
-            on:submit|preventDefault={addLink} 
-            class="border-neutral bg-neutral border-2 border-dashed rounded-xl"    
-        >
-            <select name='icon' class="select select-bordered" bind:value={$formData.icon}>
-                {#each  icons as icon }
-                    <option value={icon.toLocaleLowerCase()}>{icon}</option>
-                {/each}
-            </select>
-            <input class:text-error={!titleValid} name="title" type="text" class="input" placeholder={$formData.icon?`My ${$formData.icon} Page`:"Title"} bind:value={$formData.title}/>
-            <input class:text-error={!urlValid}  name="url" type="text" class="input" placeholder={`${$formData.icon} Link`} bind:value={$formData.url}/>
-            <p class="text-error"></p>
-            <div class="flex justify-end">
-                <button 
-                on:click={()=>showAddLinkForm=false} 
-                class="btn btn-ghost uppercase"
-                >
-                    Cancel
-                </button>
-                <button type="submit" disabled={!(urlValid&&titleValid)} class="btn btn-primary uppercase">Add</button>
-            </div>
-        </form>
-    {:else}
-        <button 
-            on:click={()=>showAddLinkForm=true}  
-            class="btn"
-        >Add Link</button>
-    {/if}
+    <AddLink/>
 </main>

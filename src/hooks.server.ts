@@ -6,7 +6,6 @@ export const handle=(async ({event,resolve}) => {
     try{
         const decodedCook = adminAuth.verifySessionCookie(cookie!)
         event.locals.userID = (await decodedCook).uid;
-        // event.locals.username = 
     }catch(e){
         event.locals.userID = null
     }

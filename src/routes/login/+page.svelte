@@ -1,6 +1,7 @@
 <script lang="ts">  
     import { auth, user, userData} from "$lib/firebase";
     import {GoogleAuthProvider,signInWithPopup,signOut} from 'firebase/auth'
+    import {goto} from '$app/navigation'
     async function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
         const userCredential = await signInWithPopup(auth,provider)
@@ -14,6 +15,8 @@
             },
             body:JSON.stringify({idToken})
         })
+        if($user)
+            goto('/login/username')
     }
     async function sigOutUser() {
         const res = await fetch('/api/signin',{method:'DELETE'});
@@ -36,7 +39,7 @@
     </div>
     <h1>Hi, {$user.displayName}</h1>
     <p class="text-green-400">You are logged in as {$user.email}</p>
-    <button on:click={sigOutUser}  class="btn btn-secondary  w-full gap-3 py-2 px-5">
+    <button on:click={sigOutUser}  class="btn w-full gap-3 py-2 px-5">
         Sign Out
     </button>
 {/if}
