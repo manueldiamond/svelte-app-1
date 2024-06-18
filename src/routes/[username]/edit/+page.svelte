@@ -73,7 +73,7 @@
 
     {#if bioFormVisible}
     <form class="form-control form-bordered gap-2" method="POST" use:enhance >
-        <textarea class="textarea-bordered w-80 textarea" name='bio' bind:value={data.bio}/>
+        <textarea placeholder="about yourself" class="textarea-bordered w-80 textarea" name='bio' bind:value={data.bio}/>
         <p>{$page.form?.message??''}</p>
         <div class="flex justify-end gap-2">
             <button on:click={()=>showEditBioForm=false} class="btn btn-ghost uppercase">cancel</button>
@@ -83,12 +83,13 @@
     {:else}
         <p class="text-justify">
             {$userData?.bio} 
-            [<button on:click={()=>showEditBioForm=true} class="link text-primary">edit</button>] 
+            [<button on:click={()=>showEditBioForm=true} class="link text-primary">{$userData?.bio?"edit":"Add a bio"}</button>] 
         </p>
     {/if}
 
     <hr class="w-40 mt-5 text-slate-500"/>
-    <h1 class="text-xl font-semibold text-primary ">Edit Links</h1>
+    <h1 class="text-xl font-semibold  ">Edit Links</h1>
+    <p class="text-sm text-slate-500">drag and drop to reorder</p>
     <div class="px-4 w-80"> 
         <SortableList 
             
@@ -102,4 +103,7 @@
         </SortableList>
     </div>
     <AddLink/>
+    <hr class="w-40 mt-5 text-slate-500"/>
+    <a href="/" class="btn btn-primary px-32">done</a>
+
 </main>

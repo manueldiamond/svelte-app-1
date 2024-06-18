@@ -12,16 +12,28 @@ import type { UserData } from "./types";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import {
+  PUBLIC_FIREBASE_API_KEY as apiKey,
+  PUBLIC_FIREBASE_AUTH_DOMAIN as authDomain,
+  PUBLIC_FIREBASE_PROJECT_ID as projectId,
+  PUBLIC_FIREBASE_STORAGE_BUCKET as storageBucket,
+  PUBLIC_FIREBASE_MESSAGING_SENDER_ID as messagingSenderId,
+  PUBLIC_FIREBASE_APP_ID as appId,
+  PUBLIC_FIREBASE_MEASUREMENT_ID as measurementId
+} from '$env/static/public';
+
 export const ssr=false
+
 const firebaseConfig = {
-  apiKey: "AIzaSyD2ppMMdBfB0-lPGKxzR7rhf7wsqutR554",
-  authDomain: "svelte-ap.firebaseapp.com",
-  projectId: "svelte-ap",
-  storageBucket: "svelte-ap.appspot.com",
-  messagingSenderId: "90730249613",
-  appId: "1:90730249613:web:ef7189e63195364cf551c4",
-  measurementId: "G-HTF8ZHJ6WN"
+apiKey,
+authDomain,
+projectId,
+storageBucket,
+messagingSenderId,
+appId,
+measurementId
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

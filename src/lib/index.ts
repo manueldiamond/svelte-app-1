@@ -18,6 +18,11 @@ export const getDisplayName=()=>{
     const $user = get(user)
     const $userData = get(userData)
     const email = $user?.email
-    const emailname = email?.slice(0,email.indexOf("@"))
+    let emailname = ''
+    if (email) 
+        emailname = email[0].toUpperCase()+email?.slice(1,email.indexOf("@"))
     return $user?.displayName??$userData?.username??emailname
 }
+
+// m2FByjK1OrdjJEawZ96zYEGadrp1
+// m2FByjK1OrdjJEawZ96zYEGadrp1 

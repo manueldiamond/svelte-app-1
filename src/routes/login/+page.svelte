@@ -72,7 +72,7 @@
         {#if registering}
             <input bind:value={$formStore.confirmpass} placeholder="Confirm password" name='confirmpass' type="password" class="input password"/>
         {/if}
-        <button disabled={!canSignIn} type="submit" class="btn my-4">Sign in</button>
+        <button disabled={!canSignIn} type="submit" class="btn my-4">{registering?"Register":"Sign in"}</button>
     </form>
     <p>New to {name}? <button on:click={()=>registering=true} class="text-primary link">Register</button></p>
     <div class="flex w-full items-center px-5">

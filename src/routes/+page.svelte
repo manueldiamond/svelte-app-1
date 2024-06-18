@@ -62,7 +62,7 @@
               {#if demoLinks.length<8}
                 <AddLink on:add={addLink} demo/>
               {/if}
-              <a href="/login" class="btn btn-primary">share public link</a>
+              <a href="/login" class="btn btn-primary">Share public link</a>
               
         </section>
 
