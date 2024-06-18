@@ -1,7 +1,6 @@
 <script lang="ts">
-    import {SortableList,UserLink,AddLink} from '$lib'
+    import {SortableList,UserLink,AddLink,name} from '$lib'
     import type { CustomParameters } from 'firebase/auth/web-extension';
-    const name = 'LINKR'
     let demoLinks=[
             { id:'1', url: 'https://www.facebook.com', icon: 'facebook', title: 'Facebook Page' },
             { id:'2', url: 'https://www.whatsapp.com', icon: 'whatsapp', title: 'WhatsApp Chat' },
@@ -69,7 +68,7 @@
 
         <footer class="bg-gray-800 text-white mt-auto py-8">
           <div class="container mx-auto px-4">
-            <p class="text-lg text-center">&copy; 2024 LINKR. Developed by Manuel D. Built with SvelteKit, Tailwind CSS, DaisyUI and Firebase.</p>
+            <p class="text-lg text-center">&copy; 2024 <span class="uppercase">{name}</span>. Developed by Manuel D. <br><span class="italics text-sm text-slate-500">(ehm... I followd a tutorial)</span> <br>Built with SvelteKit, Tailwind CSS, DaisyUI and Firebase.</p>
           </div>
         </footer>
       </div>

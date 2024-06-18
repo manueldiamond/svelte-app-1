@@ -11,7 +11,7 @@
     let isAvailable = false;
     let debounceTimer:NodeJS.Timeout;
 
-    const usernameRegEx=/^[a-zA-Z0-9_]{3,19}$/
+    const usernameRegEx=/^[a-zA-Z0-9_]{3,20}$/
 
     $:isValid = usernameRegEx.test(username)
 
@@ -59,7 +59,7 @@
         </p>
         <a href="photo" class="btn btn-primary">Upload Profile Image</a>
     {:else}
-        <h2>Setup Username</h2>
+        <h2>{editing?"Edit":"Setup"} Username</h2>
         <form on:submit|preventDefault={confirmUsername} class="form-control gap-4">
             <input 
                 type="text"
@@ -78,6 +78,11 @@
                     </p>
                 {:else}
                     <p class="text-error">username is invalid</p>
+                    <p class="text-error">{
+                        username.includes(" ")?"spaces are not allowed"
+                        :username.includes('-')?"'-' not allowed"
+                        :username.length>=20?"Too long, Max 20 characters"
+                        :username.length<3?"Too short":""}</p>
                 {/if}
             {/if}
             <button class="btn btn-success" disabled={!isAvailable&&isValid}>Conrim Username</button>

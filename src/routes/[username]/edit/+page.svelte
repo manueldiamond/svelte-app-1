@@ -46,7 +46,7 @@
 <main class="flex flex-col gap-4 items-center w-90 my-5 mb-20">
 
     <h1 class="text-2xl font-bold">Edit your Links Profile</h1>
-    <p>Profile Link: <a class:text-primary={isProfilePublic} class="link" href={isProfilePublic?profileUrl:''} target='_blank'>{profileUrl}</a></p>
+    <p>Profile Link: <a class:text-primary={isProfilePublic} class="link" href={isProfilePublic?profileUrl:'#'} target={isProfilePublic?'_blank':'_self'}>{profileUrl}</a></p>
     <p class="text-sm text-slate-500 -mt-4">({isProfilePublic?"visible to all":"only visible to you"})</p>
     <div class="flex gap-2">
         <label for="public-checkbox" >Public</label>
@@ -61,7 +61,7 @@
         />
     </div>
 
-    <div class="card w-96 bg-base-100 shadow-xl image-full">
+    <div class="card w-36 sh bg-base-100 shadow-xl image-full shadow !shadow-[5px_5px_10px_black_-5px_-5px_10px_#ffffff]">
         <figure>
             <img src={$userData?.photoURL} alt="profile" />
         </figure>
