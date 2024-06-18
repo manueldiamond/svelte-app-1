@@ -9,15 +9,15 @@
     <title>@{data.username} Links</title>
     <meta name='description' content={data.bio} />
 </svelte:head>
-<main class="flex-col flex gap-3 items-center mx-auto my-20">
+<main class="flex-col flex gap-3 items-center mx-auto mb-20">
     <h1 class="text-primary text-2xl my-6">@<span class="text-4xl">{data.username}</span></h1>
     <img 
         class="avatar rounded-xl w-80" 
-        src={$userData?.photoURL??'/user.png'} 
-        alt={`${$userData?.username} photo`}
+        src={data.photoURL??'/user.png'} 
+        alt={`${data?.username}`}
     />
     <p>{data.bio??"no  bio yet.."}</p>
-    <ul class="list-none flex flex-col gap-4 w-full">
+    <ul class="list-none flex flex-col gap-4 w-full mt-5">
         {#each  data.links as item}
             <li class="list-item">
                 <UserLink {...item} />
