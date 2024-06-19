@@ -11,6 +11,10 @@
      const del=()=>{
         dispatch('delete',url)
      }
+
+    if (!url.match(/^[a-zA-Z]+:\/\//)) {
+      url = 'https://' + url;
+    }
 </script>
 
 <a id={title} href={editing?"#"+title:url} class="glass group items-center relative btn py-5 px-8 h-max flex w-full gap-2">
