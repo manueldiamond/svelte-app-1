@@ -21,7 +21,24 @@
             ...data
         })]
     }
+
+  let description = `${name} is a simple way to share multiple links.`;
+  let keywords = "Linktree clone, multiple links, SvelteKit, Firebase, link management, user authentication";
+  let author = "Manuel Diamond";
+  let url = "https://linkflow.vercel.app"; 
 </script>
+
+<svelte:head>
+  <title>{name}</title>
+  <meta name="description" content={description}>
+  <meta name="keywords" content={keywords}>
+  <meta name="author" content={author}>
+  <meta property="og:title" content={name}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={url}>
+ 
+</svelte:head>
 
 <main>
     <div class="min-h-screen flex flex-col smooth-scroll">
@@ -68,7 +85,7 @@
 
         <footer class="bg-gray-800 text-white mt-auto py-8">
           <div class="container mx-auto px-4">
-            <p class="text-lg text-center">&copy; 2024 <span class="uppercase">{name}</span>. Developed by Manuel D. <br><span class="italics text-sm text-slate-500">(ehm... I followd a tutorial)</span> <br>Built with SvelteKit, Tailwind CSS, DaisyUI and Firebase.</p>
+            <p class="text-lg text-center">&copy; 2024 <span class="uppercase">{name}</span>. Developed by Manuel D. <br><span class="italics text-sm text-slate-500">(ehm... I followd a tutorial so, I actually made this while learning Sveltekit)</span> <br>Built with SvelteKit, Tailwind CSS, DaisyUI and Firebase.</p>
           </div>
         </footer>
       </div>
