@@ -37,7 +37,7 @@
   <meta property="og:description" content={description}>
   <meta property="og:type" content="website">
   <meta property="og:url" content={url}>
-  <meta property="og:image" content="/img.png">
+  <meta property="og:image" content="https://i.ibb.co/tDT9qrt/img.png">
  
 </svelte:head>
 
