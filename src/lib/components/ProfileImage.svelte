@@ -6,6 +6,6 @@
 
 <div class={"avatar"}>
     <div class={"ring rounded-full "+className}>
-        <img  src={$userData?.photoURL} alt={`${getDisplayName()}'s profile photo'`}>
+        <img  src={$userData?.photoURL?$userData.photoURL:'/profile.png'} alt={`${getDisplayName()}'s profile photo'`}>
     </div>
 </div>

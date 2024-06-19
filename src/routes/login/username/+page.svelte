@@ -22,7 +22,7 @@
         batch.set(doc(DB,'usernames',username),{uid:$user?.uid});
         batch.set(doc(DB,'users',$user!.uid),{
             username,
-            photoURL:$userData?.photoURL??$user?.photoURL,
+            photoURL:$userData?$userData.photoURL:$user?.photoURL?$user.photoURL:'/profile.png',
             published:true,
             bio:'',
             links:[
