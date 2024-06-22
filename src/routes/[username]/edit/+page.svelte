@@ -2,10 +2,7 @@
     import { arrayUnion,arrayRemove , doc, setDoc, updateDoc,} from 'firebase/firestore';
     import type { PageData } from './$types';
     import { DB, user, userData } from '$lib/firebase';
-    import { writable } from 'svelte/store';
     import SortableList from '$lib/components/SortableList.svelte';
-    import {env} from '$env/dynamic/public'
-    import { dev } from '$app/environment';
     import UserLink from '$lib/components/UserLink.svelte';
     import { enhance } from '$app/forms';
     import { page } from '$app/stores';
@@ -61,7 +58,7 @@
         />
     </div>
 
-    <div class="card w-36 sh bg-base-100 shadow-xl image-full shadow !shadow-[5px_5px_10px_black_-5px_-5px_10px_#ffffff]">
+    <div class="card w-36 sh bg-base-100 --shadow-xl image-full  !shadow-[5px_5px_10px_black_-5px_-5px_10px_#ffffff]">
         <figure>
             <img src={$userData?.photoURL} alt="profile" />
         </figure>
